@@ -7,6 +7,7 @@ from .models import Uni
 from .models import Post
 from .models import User
 from .models import Product
+from .models import NewUser
 
 class HeroSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -27,12 +28,18 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Student
-        fields = ('id','email','name','mobile','country','gender','birth_date','birth_month','birth_year','address1','address2','prev_qualification','IELTSBand','Desiredlevel','StudyDestination','IntendedSemester','DesiredSubject' )
+        fields = ('id','name','email','mobile','country','gender','birth_date','birth_month','birth_year','address1','address2','prev_qualification','IELTSBand','Desiredlevel','StudyDestination','IntendedSemester','DesiredSubject' )
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('id','email','usertype')        
+        fields = ('id','name','email','usertype','password')
+
+        # def create(self, validated_data):
+        #     password = validated_data.pop('password', None)
+            # instance = 
+            
+        
         
 class AgentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -48,3 +55,9 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+
+class NewUserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = NewUser
+        fields = ('email','username','firstname')
