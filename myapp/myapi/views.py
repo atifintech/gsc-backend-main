@@ -1,6 +1,8 @@
 from rest_framework import authentication, viewsets
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+
 
 from .serializers import HeroSerializer
 from .models import Hero
@@ -20,7 +22,6 @@ from .models import User
 from .serializers import PostSerializer
 from .models import Post
 
-
 from .serializers import ProductSerializer
 from .models import Product
 
@@ -32,6 +33,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
 
+# from myapp.myapi import serializers
+
 class HeroViewSet(viewsets.ModelViewSet):
     queryset = Hero.objects.all().order_by('name')
     serializer_class = HeroSerializer
@@ -40,7 +43,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all().order_by('name')
     serializer_class = StudentSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     
 class AgentViewSet(viewsets.ModelViewSet):
     queryset = Agent.objects.all().order_by('name')
@@ -48,7 +51,9 @@ class AgentViewSet(viewsets.ModelViewSet):
     
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
-    serializer_class = UserSerializer    
+    serializer_class = UserSerializer
+    authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all().order_by('id')
@@ -78,4 +83,15 @@ class PostView(APIView):
         else:
             print('error', posts_serializer.errors)
             return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+# class RegisterView(APIView):
+
+#     def post(self, request):
+#         serializer = UserSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+
+
+
 # Create your views here.

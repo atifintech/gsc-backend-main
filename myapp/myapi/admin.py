@@ -7,6 +7,7 @@ from .models import Post
 from .models import User
 from .models import Product
 from .models import Service
+from .models import NewUser
 
 admin.site.register(Hero)
 admin.site.register(Student)
@@ -16,3 +17,4 @@ admin.site.register(Post)
 admin.site.register(User)
 admin.site.register(Product)
 admin.site.register(Service)
+admin.site.register(NewUser)
