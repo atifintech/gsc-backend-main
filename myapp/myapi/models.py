@@ -132,12 +132,7 @@ class User(models.Model):
     name = models.CharField(max_length=60, default='')
     email = models.CharField(max_length=60)
     usertype = models.CharField(max_length=60)
-    password = models.CharField(max_length=60, default='')
 
-    username = None
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email   
@@ -189,6 +184,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         'about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    # usertype
+
 
     objects = CustomAccountManager()
 
