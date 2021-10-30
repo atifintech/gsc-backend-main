@@ -20,8 +20,7 @@ router.register(r'uni', views.UniViewSet)
 router.register(r'user', views.UserViewSet)
 router.register(r'product', views.ProductViewSet)
 router.register(r'service', views.ServiceViewSet)
-# router.register(r'service', views.CustomUserCreate)
-# router.register(r'newuser', views.NewUserViewSet)
+router.register(r'newuser', views.NewUserViewSet)
 
 
 # Wire up our API using automatic URL routing.
@@ -31,7 +30,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('posts/', views.PostView.as_view(), name= 'posts_list'),
 
-    path('gettoken/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 

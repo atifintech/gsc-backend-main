@@ -55,10 +55,14 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class NewUserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = NewUser
-#         fields = '__all__'
+class NewUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewUser
+        fields = '__all__'
+    
+    # @classmethod
+    # def get_extra_actions(cls):
+    #     return []
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
