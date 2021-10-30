@@ -26,6 +26,7 @@ from .serializers import ServiceSerializer
 from .models import Service
 from .serializers import CustomUserSerializer
 from .models import NewUser
+from .serializers import NewUserSerializer
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
@@ -36,7 +37,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 
 # from myapp.myapi import serializers
-
 class HeroViewSet(viewsets.ModelViewSet):
     queryset = Hero.objects.all().order_by('name')
     serializer_class = HeroSerializer
@@ -48,7 +48,6 @@ class StudentViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
 
     # email column
-    
 class AgentViewSet(viewsets.ModelViewSet):
     queryset = Agent.objects.all().order_by('name')
     serializer_class = AgentSerializer
@@ -69,13 +68,7 @@ class ServiceViewSet(viewsets.ModelViewSet):
     
 class UniViewSet(viewsets.ModelViewSet):
     queryset = Uni.objects.all().order_by('name')
-    serializer_class = UniSerializer
-
-# class NewUserViewSet(viewsets.ModelViewSet):
-#     queryset = NewUser.objects.all().order_by('email')
-#     serializer_class = NewUserSerializer
-#     authentication_classes = [JWTAuthentication]
-#     # permission_classes = [IsAuthenticated]      
+    serializer_class = UniSerializer   
     
 class PostView(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -102,8 +95,16 @@ class PostView(APIView):
 #         serializer.save()
 #         return Response(serializer.data)
 
+class NewUserViewSet(viewsets.ModelViewSet):
+    queryset = NewUser.objects.all().order_by('email')
+    serializer_class = CustomUserSerializer
+    authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]   
 
 class CustomUserCreate(APIView):
+    # queryset = NewUser.objects.all().order_by('email')
+    # serializer_class = CustomUserSerializer
+    # authentication_classes = [JWTAuthentication]
     permission_classes = [AllowAny]
 
     def post(self, request, format='json'):
@@ -114,6 +115,10 @@ class CustomUserCreate(APIView):
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    # @classmethod
+    # def get_extra_actions(cls):
+    #     return []
 
 
 class BlacklistTokenUpdateView(APIView):
